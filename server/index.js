@@ -3,6 +3,7 @@ const express = require('express')
 const sequelize = require('./db')
 const models = require('./models/models')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT||5000
 const app = express()
 app.use(cors()) // middleware для взаимодействия между локальным клиентом и сервером
 app.use(express.json()) // для парсинга JSON формата
+app.use(fileUpload({})) // функция позволяющая работать с файлами(из библиотеки express-fileupload) 
 app.use('/api', router)
 
 // ВАЖНО! middleware, который работает с ошибками должен регестрироваться в конце 
