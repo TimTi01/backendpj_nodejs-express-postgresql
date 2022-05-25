@@ -10,5 +10,3 @@ module.exports = new Sequelize(
         port: process.env.DB_PORT
     }
 )
-
-// Закончил на построении диаграммы подключения к БД --> https://www.youtube.com/watch?v=H2GCkRF9eko

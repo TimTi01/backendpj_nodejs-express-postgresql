@@ -20,7 +20,29 @@ class DeviceController {
     }
 
     async getAll(req, res) {
+        const {brandId, typeId} = req.query
+        let devices;
+        // фильтрация, если нет ни бренда ни типа
+        if (!brandId && !typeId) {
+            devices = await Device.findAll()   
+        }
+        
+        // фильтрация, если есть бренд, но нет типа
+        if (brandId && !typeId) {
+            devices = await Device.findAll({where: {brandId}})   
+        }
+        
+        // фильтрация, если есть тип, но нет бренда
+        if (!brandId && typeId) {
+            devices = await Device.findAll({where: {typeId}})   
+        }
 
+        // фильтрация, если есть тип и бренд
+        if (brandId && typeId) {
+            devices = await Device.findAll({where: {typeId, brandId}})
+        }
+
+        return res.json(devices)
     }
 
     async getOne(req, res) {

@@ -6,13 +6,14 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
-
+const path = require('path')
 
 const PORT = process.env.PORT||5000
 
 const app = express()
 app.use(cors()) // middleware для взаимодействия между локальным клиентом и сервером
 app.use(express.json()) // для парсинга JSON формата
+app.use(express.static(path.resolve(__dirname, 'static'))) // работа со статикой(позваляет обращаться к статичным файлам из папки 'static')
 app.use(fileUpload({})) // функция позволяющая работать с файлами(из библиотеки express-fileupload) 
 app.use('/api', router)
 
